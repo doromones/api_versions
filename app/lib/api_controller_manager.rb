@@ -29,7 +29,8 @@ module ApiControllerManager
       proc_hash = get_api_proc(method_name)
 
       if proc_hash[:options][:from]
-        proc_hash = get_api_proc(method_name, api_version: proc_hash[:options][:from].to_sym)
+        proc_hash = get_api_proc method_name,
+                                 api_version: proc_hash[:options][:from].to_sym
       end
 
       if proc_hash[:proc]
