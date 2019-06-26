@@ -26,7 +26,7 @@ module ApiControllerManager
     end
 
     def raise_proc_not_found method_name
-      raise NotImplementedError, "method `#{method_name}` not found"
+      raise NotImplementedError, "method `#{method_name}` not found for version `#{current_api_version}`"
     end
 
     def run_api_proc(method_name)

@@ -4,13 +4,13 @@ RSpec.describe MainController, type: :controller do
 
   describe 'GET index' do
     it do
-      expect { get :index }.to raise_error(NotImplementedError)
+      expect { get :index }.to raise_error(NotImplementedError, "method `index` not found for version `base`")
     end
   end
 
   describe 'GET index bad version' do
     it do
-      expect { get :index, params: { api_version: 'BAD' } }.to raise_error(NotImplementedError)
+      expect { get :index, params: { api_version: 'BAD' } }.to raise_error(NotImplementedError, "method `index` not found for version `BAD`")
     end
   end
 
