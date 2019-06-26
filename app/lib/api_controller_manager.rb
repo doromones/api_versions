@@ -53,9 +53,9 @@ module ApiControllerManager
     def api_version(version, &block)
       @api_versions ||= {}
 
-      struct = ApiStructDSL.new(version)
-      struct.instance_eval(&block)
-      @api_versions[version.to_sym] = struct.return
+      @api_versions[version.to_sym] = ApiStructDSL.new(version).tap do |struct|
+        struct.instance_eval(&block)
+      end.return
 
       virtual_api_methods.each do |method_name|
         next if respond_to? method_name
