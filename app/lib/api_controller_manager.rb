@@ -22,11 +22,17 @@ module ApiControllerManager
 
   module InstanceMethods
     def get_api_proc(method_name, api_version: current_api_version)
-      self.class.api_versions[api_version][method_name]
+      self.class.api_versions.fetch(api_version, {})[method_name]
+    end
+
+    def raise_proc_not_found method_name
+      raise NotImplementedError, "method `#{method_name}` not found"
     end
 
     def run_api_proc(method_name)
       proc_hash = get_api_proc(method_name)
+
+      raise_proc_not_found method_name if proc_hash.nil?
 
       if proc_hash[:options][:from]
         proc_hash = get_api_proc method_name,
@@ -36,7 +42,7 @@ module ApiControllerManager
       if proc_hash[:proc]
         instance_eval(&proc_hash[:proc])
       else
-        raise NotImplementedError, "method `#{method_name}` not found"
+        raise_proc_not_found method_name
       end
     end
 
