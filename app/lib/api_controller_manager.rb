@@ -8,8 +8,7 @@ module ApiControllerManager
   class ApiStructDSL
     attr_reader :methods
 
-    def initialize(version)
-      @version = version
+    def initialize
       @methods = {}
     end
 
@@ -51,7 +50,7 @@ module ApiControllerManager
     def api_version(version, &block)
       @api_versions ||= {}
 
-      @api_versions[version.to_sym] = ApiStructDSL.new(version).tap do |struct|
+      @api_versions[version.to_sym] = ApiStructDSL.new.tap do |struct|
         struct.instance_eval(&block)
       end.methods
 
