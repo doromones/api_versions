@@ -14,6 +14,18 @@ RSpec.describe MainController, type: :controller do
     end
   end
 
+  describe 'GET index empty version' do
+    it do
+      expect { get :index, params: { api_version: '' } }.to raise_error(NotImplementedError, "method `index` not found for version ``")
+    end
+  end
+
+  describe 'GET index nil version' do
+    it do
+      expect { get :index, params: { api_version: nil } }.to raise_error(NotImplementedError, "method `index` not found for version ``")
+    end
+  end
+
   describe 'GET index 1.0' do
     it do
       get :index, params: { api_version: '1.0' }
