@@ -6,6 +6,8 @@ module ApiControllerManager
   end
 
   class ApiStructDSL
+    attr_reader :methods
+
     def initialize(version)
       @version = version
       @methods = {}
@@ -16,10 +18,6 @@ module ApiControllerManager
           options: options,
           proc: block
       }
-    end
-
-    def return
-      @methods
     end
   end
 
@@ -55,7 +53,7 @@ module ApiControllerManager
 
       @api_versions[version.to_sym] = ApiStructDSL.new(version).tap do |struct|
         struct.instance_eval(&block)
-      end.return
+      end.methods
 
       virtual_api_methods.each do |method_name|
         next if respond_to? method_name
