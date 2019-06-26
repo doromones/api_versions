@@ -1,4 +1,3 @@
 class ApplicationController < ActionController::API
-  include ::ControllerVersionsConcern
-
+  include ApiControllerManager
 end
