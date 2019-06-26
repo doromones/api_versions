@@ -11,6 +11,8 @@ class MainController < ApplicationController
   end
 
   api_version '1.0.1' do
+    api_method :index, from: '1.0'
+
     api_method :collection do
       'collection for 1.0.1'
     end
@@ -18,6 +20,7 @@ class MainController < ApplicationController
 
   api_version '1.1' do
     api_method :index, from: '1.0'
+
     api_method :collection, from: '1.0.1'
   end
 
